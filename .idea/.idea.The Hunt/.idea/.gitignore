@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/contentModel.xml
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.The Hunt.iml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\bmahe\Game Dev\Games\The Hunt\.idea\.idea.The Hunt\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
