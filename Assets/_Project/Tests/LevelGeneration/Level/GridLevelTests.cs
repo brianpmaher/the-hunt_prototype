@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using TheHunt.LevelGeneration;
+using TheHunt.LevelGeneration.Level;
 
-namespace Tests.LevelGeneration
+namespace Tests.LevelGeneration.Level
 {
     [TestFixture]
     public class GridLevelTests
@@ -26,8 +26,8 @@ namespace Tests.LevelGeneration
         {
             var width = 4;
             var length = 6;
-            var gridLevel = new GridLevel(width, length);
             
+            var gridLevel = new GridLevel(width, length);
             var rooms = gridLevel.GetRooms();
             
             Assert.AreEqual(width * length, rooms.Length);

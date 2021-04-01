@@ -1,4 +1,4 @@
-﻿namespace TheHunt.LevelGeneration
+﻿namespace TheHunt.LevelGeneration.Pass
 {
     public interface IGenerationPass
     {

@@ -1,4 +1,6 @@
-﻿namespace TheHunt.LevelGeneration
+﻿using TheHunt.LevelGeneration.Pass;
+
+namespace TheHunt.LevelGeneration
 {
     public class LevelGenerator
     {
