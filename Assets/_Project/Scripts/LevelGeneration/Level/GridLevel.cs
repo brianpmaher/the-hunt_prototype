@@ -60,20 +60,7 @@ namespace TheHunt.LevelGeneration.Level
             return new List<Room>();
         }
         
-        private void InitializeRooms(int width, int length)
-        {
-            _rooms = new Room[width, length];
-            
-            for (var i = 0; i < width; i++)
-            {
-                for (var j = 0; j < length; j++)
-                {
-                    _rooms[i, j] = new Room();
-                }
-            }
-        }
-
-        private List<Room> GetAllAdjacentRoomsAtCoord(int x, int y)
+        public List<Room> GetAllAdjacentRoomsAtCoord(int x, int y)
         {
             var adjacentRooms = new List<Room>();
             
@@ -98,6 +85,19 @@ namespace TheHunt.LevelGeneration.Level
             }
 
             return adjacentRooms;
+        }
+
+        private void InitializeRooms(int width, int length)
+        {
+            _rooms = new Room[width, length];
+            
+            for (var i = 0; i < width; i++)
+            {
+                for (var j = 0; j < length; j++)
+                {
+                    _rooms[i, j] = new Room();
+                }
+            }
         }
 
         private bool GetNorthRoomFromCoord(int x, int y, out Room northRoom)
