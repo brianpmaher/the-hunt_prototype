@@ -26,41 +26,23 @@ namespace TheHunt.LevelGeneration.Level
 
             InitializeRooms(width, length);
         }
-
+        
         public Room[] GetRooms()
         {
             var rooms = new Room[RoomsWidth * RoomsLength];
             
-            for (var i = 0; i < RoomsWidth; i++)
+            for (var x = 0; x < RoomsWidth; x++)
             {
-                for (var j = 0; j < RoomsLength; j++)
+                for (var y = 0; y < RoomsLength; y++)
                 {
-                    rooms[i + j] = _rooms[i, j];
+                    rooms[RoomsWidth * x + y] = _rooms[x, y];
                 }
             }
 
             return rooms;
         }
-
-        public List<Room> GetConnectedRooms(Guid roomId)
-        {
-            for (var i = 0; i < RoomsWidth; i++)
-            {
-                for (var j = 0; j < RoomsLength; j++)
-                {
-                    var room = _rooms[i, j];
-                    
-                    if (room.ID != roomId) continue;
-                    
-                    var connectedRooms = GetAllAdjacentRoomsAtCoord(i, j);
-                    return connectedRooms;
-                }
-            }
-            
-            return new List<Room>();
-        }
         
-        public List<Room> GetAllAdjacentRoomsAtCoord(int x, int y)
+        public List<Room> GetConnectedRooms(int x, int y)
         {
             var adjacentRooms = new List<Room>();
             
@@ -87,15 +69,60 @@ namespace TheHunt.LevelGeneration.Level
             return adjacentRooms;
         }
 
+        public List<Room> GetConnectedRooms(Guid roomId)
+        {
+            for (var x = 0; x < RoomsWidth; x++)
+            {
+                for (var y = 0; y < RoomsLength; y++)
+                {
+                    var room = _rooms[x, y];
+                    
+                    if (room.ID != roomId) continue;
+                    
+                    var connectedRooms = GetConnectedRooms(x, y);
+                    return connectedRooms;
+                }
+            }
+            
+            return new List<Room>();
+        }
+
+        public int[] GetRoomCoordinate(Guid roomId)
+        {
+            for (var x = 0; x < RoomsWidth; x++)
+            {
+                for (var y = 0; y < RoomsLength; y++)
+                {
+                    var room = _rooms[x, y];
+                    
+                    if (room.ID != roomId) continue;
+
+                    return new[] {x, y};
+                }
+            }
+
+            throw new RoomNotFoundException(roomId);
+        }
+
+        public Room GetRoom(int x, int y)
+        {
+            return _rooms[x, y];
+        }
+
+        public bool IsRoomOuterRoom(Guid roomId)
+        {
+            return GetConnectedRooms(roomId).Count < 4;
+        }
+        
         private void InitializeRooms(int width, int length)
         {
             _rooms = new Room[width, length];
             
-            for (var i = 0; i < width; i++)
+            for (var x = 0; x < width; x++)
             {
-                for (var j = 0; j < length; j++)
+                for (var y = 0; y < length; y++)
                 {
-                    _rooms[i, j] = new Room();
+                    _rooms[x, y] = new Room();
                 }
             }
         }
@@ -146,6 +173,14 @@ namespace TheHunt.LevelGeneration.Level
 
             westRoom = null;
             return false;
+        }
+    }
+
+    public class RoomNotFoundException : Exception
+    {
+        public RoomNotFoundException(Guid id) 
+            : base("The room with ID " + id + " could not be found in the level.")
+        {
         }
     }
 }

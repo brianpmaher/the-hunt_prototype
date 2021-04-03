@@ -24,8 +24,8 @@ namespace Tests.LevelGeneration.Level
         [Test]
         public void ShouldGenerateANumberOfRooms()
         {
-            var width = 4;
-            var length = 6;
+            const int width = 4;
+            const int length = 6;
             
             var gridLevel = new GridLevel(width, length);
             var rooms = gridLevel.GetRooms();
@@ -36,11 +36,11 @@ namespace Tests.LevelGeneration.Level
         [Test]
         public void ShouldReturnTwoConnectedRoomsForACornerRoom()
         {
-            var width = 5;
-            var length = 5;
-
+            const int width = 5;
+            const int length = 5;
             var gridLevel = new GridLevel(width, length);
-            var connectedRooms = gridLevel.GetAllAdjacentRoomsAtCoord(0, 0);
+            
+            var connectedRooms = gridLevel.GetConnectedRooms(0, 0);
 
             Assert.AreEqual(2, connectedRooms.Count);
         }
@@ -48,11 +48,11 @@ namespace Tests.LevelGeneration.Level
         [Test]
         public void ShouldReturnThreeConnectedRoomsForANonCornerEdgeRoom()
         {
-            var width = 5;
-            var length = 5;
-
+            const int width = 5;
+            const int length = 5;
             var gridLevel = new GridLevel(width, length);
-            var connectedRooms = gridLevel.GetAllAdjacentRoomsAtCoord(3, 0);
+            
+            var connectedRooms = gridLevel.GetConnectedRooms(3, 0);
 
             Assert.AreEqual(3, connectedRooms.Count);
         }
@@ -60,13 +60,40 @@ namespace Tests.LevelGeneration.Level
         [Test]
         public void ShouldReturnFourConnectedRoomsForACentralRoom()
         {
-            var width = 5;
-            var length = 5;
-
+            const int width = 5;
+            const int length = 5;
             var gridLevel = new GridLevel(width, length);
-            var connectedRooms = gridLevel.GetAllAdjacentRoomsAtCoord(2, 2);
+            
+            var connectedRooms = gridLevel.GetConnectedRooms(2, 2);
 
             Assert.AreEqual(4, connectedRooms.Count);
+        }
+
+        [Test]
+        public void ShouldReturnTheRoomsCoordinateWhenCallingGetRoomCoordinate()
+        {
+            const int width = 5;
+            const int length = 10;
+            var gridLevel = new GridLevel(width, length);
+            var room = gridLevel.GetRoom(3, 6);
+            
+            var coordinate = gridLevel.GetRoomCoordinate(room.ID);
+            
+            Assert.AreEqual(new int[] {3, 6}, coordinate);
+        }
+
+        [Test]
+        public void ShouldReturnTheRoomAtTheGivenCoordinate()
+        {
+            const int width = 3;
+            const int length = 3;
+            var gridLevel = new GridLevel(width, length);
+            var rooms = gridLevel.GetRooms();
+            var lastRoom = rooms[rooms.Length - 1];
+
+            var room = gridLevel.GetRoom(2, 2);
+            
+            Assert.AreEqual(lastRoom, room);
         }
     }
 }
