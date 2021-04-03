@@ -9,9 +9,14 @@ namespace TheHunt.LevelGeneration.Pass
     {
         public ILevel RunPass(ILevel level)
         {
-            var outerRooms = level.GetRooms().ToList().Where(r => level.IsRoomOuterRoom(r.ID)).ToArray();
-            var room = outerRooms[Random.Range(0, outerRooms.Length)];
-            room.Entities.Add(new PlayerEntity());
+            var potentialPlayerRooms = 
+                level.GetRooms()
+                    .Where(r => r.Entities.Count == 0)
+                    .Where(r => level.IsRoomOuterRoom(r.ID)).ToArray();
+            
+            var playerRoom = potentialPlayerRooms[Random.Range(0, potentialPlayerRooms.Length)];
+            playerRoom.Entities.Add(new PlayerEntity());
+            
             return level;
         }
     }
