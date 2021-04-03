@@ -15,6 +15,7 @@ namespace TheHunt.LevelGeneration.Pass
                 rooms
                     .Where(room => room != playerRoom)
                     .Where(room => !level.GetConnectedRooms(room.ID).Contains(playerRoom))
+                    .Where(room => room.Entities.Count == 0)
                     .ToArray();
 
             var monsterRoom = potentialMonsterRooms[Random.Range(0, potentialMonsterRooms.Length)];

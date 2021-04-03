@@ -10,6 +10,10 @@ namespace Tests.LevelGeneration.Pass
     [TestFixture]
     public class MonsterPlacementGenerationPassTests
     {
+        class TestEntity : IEntity
+        {
+        }
+        
         [Test]
         public void ShouldPlaceMonster()
         {
@@ -60,6 +64,23 @@ namespace Tests.LevelGeneration.Pass
             {
                 Assert.AreNotSame(room, monsterRoom);
             }
+        }
+
+        [Test]
+        public void ShouldNotPlaceMonsterInRoomWithAnotherEntity()
+        {
+            const int width = 5;
+            const int length = 5;
+            var level = new GridLevel(width, length);
+            var rooms = level.GetRooms();
+            var monsterPlacementGenerationPass = new MonsterPlacementGenerationPass();
+            var entityRoom = rooms[Random.Range(0, rooms.Length)];
+            entityRoom.Entities.Add(new TestEntity());
+            
+            monsterPlacementGenerationPass.RunPass(level);
+            var monsterRoom = rooms.First(room => room.HasEntityType(typeof(MonsterEntity)));
+
+            Assert.AreNotSame(entityRoom, monsterRoom);
         }
     }
 }
