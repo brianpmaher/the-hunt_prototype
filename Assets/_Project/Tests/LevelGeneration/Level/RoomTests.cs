@@ -20,7 +20,7 @@ namespace Tests.LevelGeneration.Level
 
             var hasEntityType = room.HasEntityType(typeof(TestEntity));
             
-            Assert.IsTrue(hasEntityType);
+            Assert.True(hasEntityType);
         }
     }
 }
