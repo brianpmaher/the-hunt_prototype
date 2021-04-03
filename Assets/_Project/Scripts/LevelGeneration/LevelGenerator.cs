@@ -1,4 +1,5 @@
-﻿using TheHunt.LevelGeneration.Pass;
+﻿using TheHunt.LevelGeneration.Level;
+using TheHunt.LevelGeneration.Pass;
 
 namespace TheHunt.LevelGeneration
 {

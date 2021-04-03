@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TheHunt.LevelGeneration.Level.Entity;
 
 namespace TheHunt.LevelGeneration.Level
@@ -13,6 +14,11 @@ namespace TheHunt.LevelGeneration.Level
         {
             ID = Guid.NewGuid();
             Entities = new List<IEntity>();
+        }
+        
+        public bool HasEntityType(Type entityType)
+        {
+            return Entities.Any(entity => entity.GetType() == entityType);
         }
     }
 }

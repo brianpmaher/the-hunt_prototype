@@ -19,22 +19,28 @@ namespace Tests.LevelGeneration.Pass
 
             generationPass.RunPass(gridLevel);
             var rooms = gridLevel.GetRooms();
-            Room playerRoom = null;
+            var playerRoom = rooms.First(room => room.HasEntityType(typeof(PlayerEntity)));
 
-            foreach (var room in rooms)
-            {
-                if (room.Entities.Any(entity => entity.GetType() == typeof(PlayerEntity)))
-                {
-                    playerRoom = room;
-                    break;
-                }
-            }
-            
             Assert.NotNull(playerRoom);
             
             var isOuterRoom = gridLevel.IsRoomOuterRoom(playerRoom.ID);
             
-            Assert.True(isOuterRoom);
+            Assert.IsTrue(isOuterRoom);
+        }
+
+        [Test]
+        public void ShouldOnlyPlaceOnePlayerEntity()
+        {
+            const int width = 5;
+            const int length = 5;
+            var gridLevel = new GridLevel(width, length);
+            var generationPass = new PlayerPlacementGenerationPass();
+
+            generationPass.RunPass(gridLevel);
+            var rooms = gridLevel.GetRooms();
+            var playerRooms = rooms.Where(room => room.HasEntityType(typeof(PlayerEntity)));
+
+            Assert.AreEqual(1, playerRooms.Count());
         }
     }
 }

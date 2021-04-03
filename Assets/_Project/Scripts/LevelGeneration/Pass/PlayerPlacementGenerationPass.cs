@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using TheHunt.LevelGeneration.Level;
 using TheHunt.LevelGeneration.Level.Entity;
 using UnityEngine;
 

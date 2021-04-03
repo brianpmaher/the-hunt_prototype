@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheHunt.LevelGeneration.Level;
 
-namespace TheHunt.LevelGeneration
+namespace TheHunt.LevelGeneration.Level
 {
     public interface ILevel
     {
