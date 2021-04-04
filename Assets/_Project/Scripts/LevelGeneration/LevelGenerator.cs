@@ -6,7 +6,7 @@ namespace TheHunt.LevelGeneration
     public class LevelGenerator
     {
         private readonly ILevel _level;
-        
+
         public LevelGenerator(ILevel level) 
         {
             _level = level;
